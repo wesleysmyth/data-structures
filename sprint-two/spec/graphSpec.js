@@ -1,3 +1,6 @@
+// Unit test #5 doesn't consider the removeEdge method, which is the whole point!
+// When building a solution that only allows one edge per node these tests pass
+
 describe('graph', function() {
   var graph;
 
@@ -36,11 +39,15 @@ describe('graph', function() {
     expect(graph.hasEdge('penguins', 'kittens')).to.equal(false);
   });
 
+  // refactored test
+  // Hack Reactor did not originally have a graph.removeEdge unit test
   it('should remove edges between nodes', function() {
     graph.addNode('apples');
     graph.addNode('satsumas');
     graph.addEdge('satsumas', 'apples');
     expect(graph.hasEdge('apples', 'satsumas')).to.equal(true);
+    graph.removeEdge('satsumas', 'apples');
+    expect(graph.hasEdge('apples', 'satsumas')).to.equal(false);
   });
 
   it('should execute a callback on each node in the graph', function() {
