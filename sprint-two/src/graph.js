@@ -38,7 +38,6 @@ Graph.prototype.addEdge = function(fromNode, toNode){
 
 Graph.prototype.hasEdge = function(fromNode, toNode){
   // determine if the edges object has a fromNode property, if so, look for toNode in that array
-  console.log(this.edges);
   return this.edges[fromNode].indexOf(toNode) >= 0;
 };
 
