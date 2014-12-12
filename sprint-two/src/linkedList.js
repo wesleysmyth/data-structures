@@ -2,6 +2,7 @@ var LinkedList = function(){
   var list = {};
   list.head = null;
   list.tail = null;
+  list.storage = [];
 
   list.addToTail = function(value){
     if (list.head === null){
@@ -11,32 +12,23 @@ var LinkedList = function(){
     }
 
     list.tail = Node(value);
-
+    list.storage.push(list.tail.value);
   };
 
   list.removeHead = function(){
     if (list.head){
       var formerHead = list.head.value;
       list.head = list.head.next;
+      list.storage.shift();
       return formerHead;
     }
   };
 
-  list.contains = function(target, node){
-    // debugger;
-    var nextItem = node === undefined ? list.head : node.next;
-    console.log(nextItem);
-
-    if (nextItem.value === target) {
-      return true;
-
-    } else if (node.next === null)  {
-      return false;
-    }
-      list.contains(target, nextItem);
+  list.contains = function(target){
+    return list.storage.indexOf(target) >= 0;
   };
 
-    return list;
+  return list;
 };
 
 var Node = function(value){
@@ -51,22 +43,3 @@ var Node = function(value){
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-var list = {
-  head: {
-    value: 1,
-    next: {
-      value: 2,
-      next: {
-        value: 3,
-        next: null
-      }
-    }
-  },
-  tail: {
-     value: 3,
-    next: null
-  }
-};
-
-
