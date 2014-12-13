@@ -9,10 +9,10 @@ HashTable.prototype.insert = function(k, v){
   // if (this._storage.get(i) === undefined), then create a new array, push {k:v}, then set to index i
   if (this._storage.get(i) === undefined) {
     var pairs = [];
-    pairs.push({k:v});
+    pairs.push([k,v]);
   } else {
     var pairs = this._storage.get(i);
-    pairs.push({k:v});
+    pairs.push([k,v]);
   }
   this._storage.set(i, pairs);
   console.log(this._storage);
@@ -25,21 +25,26 @@ HashTable.prototype.retrieve = function(k){
   if (Array.isArray(this._storage.get(i))) {
     var pairs = this._storage.get(i);
     for (var j = 0; j<pairs.length; j++) {
-      if (pairs[j][k]) {
-        return pairs[j][k];
+      if (pairs[j][0] === k) {
+        return pairs[j][1];
       }
     }
     // return this._storage.get(i);
   }
-
-
 };
 
 HashTable.prototype.remove = function(k){
-  this.insert(k, null);
+  // call getIndexBelowMaxForKey to determine index of k, and set to i.
+  var i = getIndexBelowMaxForKey(k, this._limit);
+  var pairs = this._storage.get(i);
+  // iterate through this._storage.get(i)
+  for (var j = 0; j < pairs.length; j++) {
+  // on each iteration, we are looking for subarray[0] = k, then set that subarray[1] = null
+    if (pairs[j][0] === k) {
+      pairs[j][1] = null;
+    }
+  }
 };
-
-
 
 /*
  * Complexity: What is the time complexity of the above functions?
