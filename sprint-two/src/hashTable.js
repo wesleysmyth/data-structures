@@ -15,7 +15,6 @@ HashTable.prototype.insert = function(k, v){
     pairs.push([k,v]);
   }
   this._storage.set(i, pairs);
-  console.log(this._storage);
 };
 
 HashTable.prototype.retrieve = function(k){
