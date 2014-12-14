@@ -57,10 +57,10 @@ describe('tree', function() {
     tree.addChild(6);
     tree.children[0].addChild(7);
     tree.children[1].addChild(8);
-    expect(tree.children[0].parent.to.equal(tree));
-    expect(tree.children[1].parent.to.equal(tree));
-    expect(tree.children[0].children[0].parent.to.equal(tree.children[0]));
-    expect(tree.children[1].children[0].parent.to.equal(tree.children[1]));
+    expect(tree.children[0].parent).to.equal(tree);
+    expect(tree.children[1].parent).to.equal(tree);
+    expect(tree.children[0].children[0].parent).to.equal(tree.children[0]);
+    expect(tree.children[1].children[0].parent).to.equal(tree.children[1]);
   });
 
   it('should correctly remove node and all of its children from its parent node', function(){
@@ -70,26 +70,23 @@ describe('tree', function() {
     tree.children[0].addChild(9);
     tree.children[1].addChild(8);
     tree.children[1].addChild(10);
+    tree.children[1].addChild(11);
     tree.children[1].children[1].addChild(12);
     tree.children[1].children[2].addChild(13);
     tree.children[0].children[0].removeFromParent();
     expect(tree.contains(7)).to.equal(false);
     expect(tree.children[0].contains(7)).to.equal(false);
-    expect(tree.children[0].children[0]).to.equal(undefined);
+    expect(tree.children[0].children[0].value).to.equal(9);
     tree.children[0].removeFromParent();
     expect(tree.contains(5)).to.equal(false);
     expect(tree.contains(9)).to.equal(false);
-    expect(tree.children[0]).to.equal(undefined);
-    expect(tree.children[0].children[1]).to.equal(undefined);
-    tree.children[1].removeFromParent();
+    expect(tree.children[0].value).to.equal(6);
+    tree.children[0].removeFromParent();
     expect(tree.contains(6)).to.equal(false);
     expect(tree.contains(10)).to.equal(false);
     expect(tree.contains(12)).to.equal(false);
     expect(tree.contains(11)).to.equal(false);
     expect(tree.contains(13)).to.equal(false);
-    expect(tree.children[1]).to.equal(undefined);
-    expect(tree.children[1].children[1]).to.equal(undefined);
-    expect(tree.children[1].children[2].children[0]).to.equal(undefined);
   });
 
 

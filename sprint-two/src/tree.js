@@ -14,6 +14,7 @@ treeMethods.addChild = function(value){
   var tree = Tree(value);
   tree.parent = this;
   this.children.push(tree);
+  console.log(this);
 };
 
 treeMethods.contains = function(target){
@@ -36,6 +37,13 @@ treeMethods.contains = function(target){
   return false;
 };
 
+treeMethods.removeFromParent = function() {
+  // when we call removeFromParent on "this" we want to delete "this" from its parents children array,
+  //
+  // it will naturally remove all children nodes found in this.children
+    // if possible, delete node and all children nodes if needed
+  this.parent.children.splice(this.parent.children.indexOf(this),1);
+};
 
 /*
  * Complexity: What is the time complexity of the above functions?
